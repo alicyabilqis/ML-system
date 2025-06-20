@@ -25,4 +25,4 @@ jobs:
 
       - name: Run preprocessing script
         run: |
-          python Preprocessing/automate_Alicya.py
+          python ML-system/Eksperimen_SML_Alicya/Preprocessing/automate_Alicya.py
