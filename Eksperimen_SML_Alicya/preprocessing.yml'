@@ -1,0 +1,28 @@
+name: Run Preprocessing Automatically
+
+on:
+  push:
+    paths:
+      - 'Preprocessing/automate_Alicya.py'
+      - 'ML-system/Eksperimen_SML_Alicya/preprocessing.yml'
+
+jobs:
+  preprocessing-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.12.7'
+
+      - name: Install dependencies
+        run: |
+          pip install pandas scikit-learn gdown
+
+      - name: Run preprocessing script
+        run: |
+          python Preprocessing/automate_Alicya.py
