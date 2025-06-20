@@ -3,7 +3,7 @@ name: Run Preprocessing Automatically
 on:
   push:
     paths:
-      - 'preprocessing/automate_Nama-siswa.py'
+      - 'Preprocessing/automate_Alicya.py'
       - '.github/workflows/preprocessing.yml'
 
 jobs:
@@ -25,5 +25,5 @@ jobs:
 
       - name: Run preprocessing script
         run: |
-          python preprocessing/automate_Alicya.py
+          python Preprocessing/automate_Alicya.py
 
