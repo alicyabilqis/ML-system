@@ -3,7 +3,7 @@ name: Run Preprocessing Automatically
 on:
   push:
     paths:
-      - 'Eksperimen_SML_Alicya/Preprocessing/automate_Alicya.py'
+      - 'ML-system/Eksperimen_SML_Alicya/Preprocessing/automate_Alicya.py'
       - '.github/workflows/preprocessing.yml'
 
 jobs:
