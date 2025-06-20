@@ -48,18 +48,8 @@ def save_preprocessed_data(df, output_dir='preprocessing/namadataset_preprocessi
     print(f"\nDataset hasil preprocessing disimpan di: {output_file}")
     return output_file
 
-def show_X_y(df):
-    X = df.drop('Cover_Type', axis=1)
-    y = df['Cover_Type']
-    print("\nContoh Fitur (X):")
-    print(X.head())
-    print("\nContoh Target (y):")
-    print(y.head())
-    return X, y
-
 if __name__ == "__main__":
     csv_file = download_data()
     raw_df = load_data(csv_file)
     processed_df = preprocess_data(raw_df)
     save_preprocessed_data(processed_df)
-    show_X_y(processed_df)
