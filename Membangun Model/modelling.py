@@ -11,6 +11,7 @@ mlflow.set_tracking_uri("http://127.0.0.1:5000/")
 mlflow.set_experiment("Forest_Cover_Classification")
 
 # Load data
+!gdown 1HHv8WwNGGksU2IwY2vIJlsD8xr5tBsiV
 data = pd.read_csv("Forest cover_preprocessing_dataset.csv")
 X = data.drop("Cover_Type", axis=1)
 y = data["Cover_Type"]
@@ -23,9 +24,9 @@ X_train, X_test, y_train, y_test = train_test_split(
 # Mulai experiment MLflow
 with mlflow.start_run(run_name="No Tuning"):
     mlflow.autolog()  # Aktifkan autolog
-    
+
     # Train model
-    model = RandomForestClassifier(n_estimators=100, max_depth=20, random_state=42)
+    model = RandomForestClassifier(random_state=42)
     model.fit(X_train, y_train)
 
     print("Model trained and logged using autolog.")
