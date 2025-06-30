@@ -15,21 +15,22 @@ from sklearn.metrics import (
     confusion_matrix, classification_report
 )
 
-# === Setup MLflow credentials ===
-os.environ["MLFLOW_TRACKING_USERNAME"] = "alicyabilqis"
+# Setup MLflow credentials
+os.environ["MLFLOW_TRACKING_USERNAME"] = "------------"
 os.environ["MLFLOW_TRACKING_PASSWORD"] = "a7ea6e35ec95b8929a1bf5a4a49d07b448b53b6d"
-init(repo_owner='alicyabilqis', repo_name='MSML', mlflow=True)
-mlflow.set_experiment("RF DagsHub Hyperparameter Tuning")
+init(repo_owner='alicyabilqis', repo_name='Forest_Cover_Classification', mlflow=True)
+mlflow.set_experiment("RF Model")
 
-# === Load dataset ===
+# Load dataset
+!gdown 1HHv8WwNGGksU2IwY2vIJlsD8xr5tBsiV
 data = pd.read_csv("Forest cover_preprocessing_dataset.csv")
 X = data.drop("Cover_Type", axis=1)
 y = data["Cover_Type"]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
 
-# === Hyperparameter ranges ===
-n_estimators_range = [50, 100, 150]
-max_depth_range = [10, 20, 30]
+# Hyperparameter ranges
+n_estimators_range = [40, 50, 60]
+max_depth_range = [12, 14, 16]
 
 best_accuracy = 0
 best_params = {}
@@ -57,15 +58,15 @@ with mlflow.start_run(run_name="Hyperparameter Tuning"):
                     best_model = model
                     best_y_pred = y_pred
 
-    # === Log best model manually ===
+    # Log best model manually
     joblib.dump(best_model, "best_rf_model.pkl")
     mlflow.log_artifact("best_rf_model.pkl")
 
-    # === Log best metrics ===
+    # Log best metrics
     mlflow.log_metric("best_accuracy", best_accuracy)
     mlflow.log_params(best_params)
 
-    # === Confusion Matrix ===
+    # Confusion Matrix
     cm = confusion_matrix(y_test, best_y_pred)
     plt.figure(figsize=(8, 6))
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
@@ -76,7 +77,7 @@ with mlflow.start_run(run_name="Hyperparameter Tuning"):
     plt.close()
     mlflow.log_artifact("confusion_matrix.png")
 
-    # === Classification Report ===
+    # Classification Report
     cls_report = classification_report(y_test, best_y_pred, output_dict=True)
     cls_df = pd.DataFrame(cls_report).iloc[:-1, :-1].T
     plt.figure(figsize=(10, 6))
